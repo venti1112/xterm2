@@ -111,6 +111,9 @@ class TerminalView extends StatefulWidget {
     this.mouseCursor = SystemMouseCursors.text,
     this.keyboardType = TextInputType.emailAddress,
     this.keyboardAppearance = Brightness.dark,
+    this.autocorrect = false,
+    this.enableSuggestions = false,
+    this.enableIMEPersonalizedLearning = false,
     this.cursorType = TerminalCursorType.block,
     this.alwaysShowCursor = false,
     this.deleteDetection = false,
@@ -209,6 +212,21 @@ class TerminalView extends StatefulWidget {
   ///
   /// This setting is only honored on iOS devices.
   final Brightness keyboardAppearance;
+
+  /// Whether the platform should autocorrect the text. [false] by default.
+  final bool autocorrect;
+
+  /// Whether the platform should show input suggestions. [false] by default.
+  ///
+  /// On Android, Flutter maps `enableSuggestions: false` to
+  /// `TYPE_TEXT_VARIATION_VISIBLE_PASSWORD`, which some IMEs and ROMs treat as
+  /// a password field and force their secure keyboard. Set this to true to keep
+  /// the normal keyboard while [autocorrect] stays false.
+  final bool enableSuggestions;
+
+  /// Whether the IME may learn from the text typed into the terminal.
+  /// [false] by default.
+  final bool enableIMEPersonalizedLearning;
 
   /// The type of cursor to use. [TerminalCursorType.block] by default.
   final TerminalCursorType cursorType;
@@ -509,6 +527,9 @@ class TerminalViewState extends State<TerminalView> {
         autofocus: widget.autofocus,
         inputType: widget.keyboardType,
         keyboardAppearance: widget.keyboardAppearance,
+        autocorrect: widget.autocorrect,
+        enableSuggestions: widget.enableSuggestions,
+        enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
         deleteDetection: widget.deleteDetection,
         onInsert: _onInsert,
         onDelete: () {

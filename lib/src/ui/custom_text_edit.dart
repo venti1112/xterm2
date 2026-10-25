@@ -20,6 +20,9 @@ class CustomTextEdit extends StatefulWidget {
     this.inputAction = TextInputAction.newline,
     this.keyboardAppearance = Brightness.light,
     this.deleteDetection = false,
+    this.autocorrect = false,
+    this.enableSuggestions = false,
+    this.enableIMEPersonalizedLearning = false,
   }) : viewId = viewId ?? PlatformDispatcher.instance.implicitView?.viewId {
     if (this.viewId == null) {
       throw Exception('Cannot open input connection without a valid viewId.');
@@ -51,6 +54,12 @@ class CustomTextEdit extends StatefulWidget {
   final Brightness keyboardAppearance;
 
   final bool deleteDetection;
+
+  final bool autocorrect;
+
+  final bool enableSuggestions;
+
+  final bool enableIMEPersonalizedLearning;
 
   final int? viewId;
 
@@ -171,9 +180,9 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
         inputType: widget.inputType,
         inputAction: widget.inputAction,
         keyboardAppearance: widget.keyboardAppearance,
-        autocorrect: false,
-        enableSuggestions: false,
-        enableIMEPersonalizedLearning: false,
+        autocorrect: widget.autocorrect,
+        enableSuggestions: widget.enableSuggestions,
+        enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
       );
 
       _connection = TextInput.attach(this, config);
